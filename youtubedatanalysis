@@ -1,0 +1,35 @@
+The youtube dataset consists of 4100 records and 10 columns  
+
+//Creating a table called youtube   based on the dataset 
+
+Create table youtube(video_id String , uploader_name String , date_interval Int, Category String , video_len Int , Views Bigint , Rating Float , Rating_num Int , Comment String , Videos_videoid String )
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '\t';
+
+
+// Loading the data into the table created.
+LOAD DATA LOCAL INPATH '/home/edureka/Desktop/input' OVERWRITE INTO TABLE youtube;
+
+
+// Creating View to find maximum number of videos based on each category..
+
+Create view V6(cat,numbero) AS select category,count(videos_videoid) from youtube 
+  GROUP BY category;
+
+// Selecting the top 5 categories where maximum number of videos are uploaded.
+
+Select cat,numbero from V6 order by numbero desc limit 5;
+
+
+//Selecting the top 10 rated videos.
+
+Select videos_videoid, rating from youtube order by rating desc limit 10;
+
+
+// Selecting the most viewed videos.
+
+Select videos_videoid, views from youtube order by views desc;
+
+
+ 
+
